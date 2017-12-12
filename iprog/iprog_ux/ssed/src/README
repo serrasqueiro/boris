@@ -1,0 +1,174 @@
+ssed
++++
+A Simple SED.
+
+Examples:
+
+
+(1) on 'test' command:
+Here's an elaborated example for showing each month abbreviation hash,
+with modulus 47 (allows a distinct id for each);
+	% ssed test -z 47 Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec | grep -n . | tr : ' ' | awk '{print $2"\tMonth:",$1}' | sort -n
+
+
+(2) on from-base64-bin
+This command allows converting one or several strings (provided in args) into
+the corresponding binary content, say, to a file.
+
+Consider the SMTP AUTH: pairs of '\000'user'\000'pass.
+
+% perl -MMIME::Base64 -e 'print encode_base64("\000anywhere\@net\000invented.password")'
+AGFueXdoZXJlQG5ldABpbnZlbnRlZC5wYXNzd29yZA==
+
+There! Its encoded.
+
+% ssed from-base64-bin -o /mnt/tmp/secret.pass AGFueXdoZXJlQG5ldABpbnZlbnRlZC5wYXNzd29yZA==
+
+If you dump the corresponding file (here we substitute nil ASCII (0x0) by a '~'
+(tilde) symbol, to view it better:
+
+% cat secret.pass | tr \\000 '~'
+~anywhere@net~invented.password
+
+To do the first step in an easier way, you can try also:
+	% ssed auth-mime64 anywhere@net invented.password
+
+
+(3) on 'subst' command:
+
+% find ? -type f | awk '{print "H:/huge/images/music/discography/"$0}' | ssed subst '/' '\'
+
+Shows substituted slashes by backslashes...
+ssed 'subst' can make use of a configuration file,
+by default given by SSED_CONFIG environment variable, or using '-c' option.
+Refer also to
+	../etc/ssed.config
+
+
+(4) on 'anchor' command:
+
+Basic layout of HTML from text file.
+
+
+
+(5) on 'norm' command
+	du	Disk Usage
+	dd	Create / extract file
+	bdate	Basic date
+	texth	Text hash
+
+	norm bdate -a
+	-> shows the current 'ctime' date
+
+	norm bdate 2012-08-29 12:34
+	  OR
+	norm bdate "2012-08-29 12:34"
+	-> shows 2012-08-29 12:34:00
+	With option '-a' it shows the 'ctime' corresponding date:
+		Wed Aug 29 12:34:00 2012
+	Using -v -v (mostly verbose) shows also corresponding time stamp.
+
+(6) on 'tee' command
+
+ssed tee dumps to stdout and to a file, file output is only considered when
+option '-o' is provided.
+
+
+(7) on 'cat' command
+
+ssed cat dumps the contents of file(s), option '-z' allows setting a MASK
+that work as follow:
+	mask & 1	order files if they are similar
+	mask & 8	show dots instead of chars ASCII >=127 and
+			ASCII <160 (or ASCII >13 and <32)
+	mask & 16	show blanks instead of ASCII 0
+Option -v -v allows logging particular information, e.g. how many weird chars
+were found, and the first, at which line.
+
+Examples:
+	% ssed cat -z 25 /var/log/messages* -o /tmp/single.log
+	-> shows only normal characters, dump messages.N, messages.N-1, ...and
+	   finally messages;
+	   everything goes to a single text file under: /tmp/single.log
+
+
+(8) on 'batch' command
+
+This was created because special ISO-8859-1 characters in batch files, at least
+in Windows XP, caused the file to be not recognized for the command.
+
+
+
+About Base64
++++
+MIME Base64 is mostly used transmitting messages, in order to reduce the character set in
+transmission.
+
+	ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/
+
+(52 letters, plus ten digits, and 2 symbols)
+Newly used Base65 is similar to the one above, but uses a '%' (percent) symbol
+instead of a slash.
+
+
+
+About URLX
++++
+Is an URL representation using mainly Base65 chars.
+
+
+About timex
++++
+Idea is to show accurately, regularly, into a console (printf), the time
+(and date). Accuracy protocol should be as simple as possible, and no
+millisecond accuracy is required (as ntp does, for instance).
+
+Usage examples:
+	ssed timex +1:00
+	-> Shows ctime in one minute
+
+	ssed timex 12:34:56
+	-> Shows ctime at 12:34pm (at second 56)
+
+	ssed timex -v
+	-> Shows date & time, as per Unix POSIX 'date'
+	   ssed timex -v -z 6
+		shows microseconds,
+		and -z 3 shows milliseconds.
+TODO:
+	'timex' command not yet ready!
+--
+
+
+About unescape
++++
+Mask is the following:
+	-z 1	escapes chars whenever necessary
+	-z 2	escapes chars always
+	-z 10	only unescapes valid ASCII 7bit chars
+
+Only the default mask (0) and 10 is implemented currently.
+Mask 10: whenever an invalid 7bit char is detected, conversion is stopped
+immediately. Valid 7bit chars are ASCII 32 (blank) up to 126 (tilde), and also:
+	tab (9d)
+	new-line (10d)
+
+About from-utf8
++++
+Converts text to UCS2 (does not check ISO8859-1 if -z 1 is chosen).
+	- from-utf8
+	- from-any-utf8
+The latter is currently implemented exactly as 'from-utf8' with option '-z 1'.
+
+
+About line-histogram
++++
+Shows the number of occurrences of lines in a text-file.
+Example, a text file containing
+	Hello world.\n
+	Here I am.\n
+	Say.\n
+	Say.\n
+will dump ...2	Say
+because there are two lines matching 'Say'.
+

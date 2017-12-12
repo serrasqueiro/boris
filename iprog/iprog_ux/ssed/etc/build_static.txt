@@ -1,0 +1,1 @@
+g++ -g  -DHAS_NORM -o ssed_static *.o ../../ilibs/imedia/*.o  ../../ilibs/iobjs/*.o

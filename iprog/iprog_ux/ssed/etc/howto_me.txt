@@ -1,0 +1,11 @@
+
+
+iTunes Music Library
++++
+Display file locations:
+	% cat iTunes Music Library.xml | tr -d \\015 | \
+		grep '<key>' | grep //localhost/ | sed 's/.*file:\/\/localhost\///' | \
+		grep '</string>'$ | sed 's/<\/string>//' | \
+		cat
+
+

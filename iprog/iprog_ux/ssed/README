@@ -1,0 +1,37 @@
+ssed - a small sed
++++
+
+* Base64 conversions
+* Base65 conversions (similar to Base64, but with '%' instead of '/')
+* UTF-8 conversions
+* URL name-builder
+* Line histogram
+
+It uses imedia library for converting UTF-8 into UCS2, and makes use of
+iobjs library for Base64 and Base65 ('gString64').
+
+Hint:
+	gStringBase::base64[ 128 ]=
+	"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
+
+Hint-too: about URL builders
+	The URL name-builder:
+		- non name standard characters are cut
+			? + =
+		- special characters are converted into %02X (Hex)
+			& :
+		  (or in fact any character above 126d)
+		- blanks are transformed into '+'
+
+		Additionally separation characters like
+			colons (and semi-colons)
+		can be cut.
+
+Line histogram:
+- Generates an histogram for each text line;
+  different lines have (most likely) different string-hash;
+  this command tells how many lines are X, Y, ...Z.
+
+  Although string-hash method described above would be faster,
+  only basic list-string compare is implemented.

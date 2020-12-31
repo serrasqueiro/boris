@@ -1,0 +1,48 @@
+Pangrams:
+
+[en] The quick brown fox jumps over the lazy dog.
+
+[pt] Zebras caolhas de Java querem mandar fax para moça gigante de New York.
+
+[es] David exige plazo fijo, embarque truchas y niños New York.
+
+[fr] Voix ambiguë d'un cœur qui, au zéphyr, préfère les jattes de kiwis.
+
+150€ (150 euro is about $100).
+
+
+Pangramme
+Die ersten echten deutschsprachigen Pangramme mit SonderG wurden im Jahr 1981 in der DDR veröffentlicht:
+    * Vogt Nyx: "Büß du ja zwölf Qirsch, Kämpe!"
+    * Verbüß öd' Joch, kämpf Qual, zwing Styx!
+Die beiden gerieten aber in Vergessenheit, so dass es bis 2003 dauerte, bis ein drittes erdacht und in einer Newsgroup veröffentlicht wurde: "Fix, Schwyz!" quäkt Jürgen blöd vom Paß. (Ein Sportfan auf einem Bergübergang feuert seine Schweizer Mannschaft an.) Dieser Satz erfüllt die Regeln der vor der Rechtschreibreform von 1996 üblichen deutschen Orthographie. Zudem kommt in ihm bei 30 Buchstaben (26 des normalen Alphabetes, dazu ä, ö, ü und ß) kein Buchstabe doppelt vor.
+In einigen Schreibmaschinen-Lernkursen (zum Erlernen des Zehnfingersystems) werden diese Sätze verwendet, ebenso wie der folgende, der alle Umlaute enthält: "Die heiße Zypernsonne quälte Max und Victoria ja böse auf dem Weg bis zur Küste."
+Für den Test von Fernschreibverbindungen war früher im Fernschreibnetz "kaufen sie jede woche vier gute bequeme pelze xy 1234567890" (im Fernschreibalphabet gibt es keine Umlaute und kein ß) als sog. "Kaufen-Schleife" unter einer besonderen Rufnummer abrufbar.
+Liste deutscher Pangramme
+Pangramme ohne äöü und ß:
+    * Vogel Quax zwickt Johnys Pferd Bim. (29 G)
+    * Sylvia wagt quick den Jux bei Pforzheim. (33 G)
+    * Prall vom Whisky flog Quax den Jet zu Bruch. (35 G)
+    * Franz jagt im komplett verwahrlosten Taxi quer durch Bayern. (51 G)
+    * Stanleys Expeditionszug quer durch Afrika wird von jedermann bewundert. (61 G)
+Pangramme mit äöü, jedoch ohne ß (Schweizer Rechtschreibung):
+    * "Üb jodeln, Gör!" quäkt Schwyz' Vamp fix. (29 G)
+    * "Ja!" quäkt Schwyz' Pöbel fix vor Gmünd. (29 G)
+    * Schwyz' Vamp quäkt öd: "Fix, lob Jürgen!" (29 G)
+    * Ob Schwyz' Vamp dünkt "Fix, quäle Jörg"? (29 G)
+Pangramme mit äöü und ß:
+    * "Fix, Schwyz!" quäkt Jürgen blöd vom Paß. (30 G, alte Rechtschreibung)
+    * Jux-Typ aß schäbig vor Zwölf-qkm-Düne (30 G, mit Abkürzung)
+    * Jörg bäckt quasi zwei Haxenfüße vom Wildpony (38 G)
+    * Welch fieser Katzentyp quält da süße Vögel bloß zum Jux? (46 G)
+    * Baß verwünscht jäh Xylophon, Querflöte und ganze Musik. (46 G, alte Rechtschreibung)
+    * Falsches Üben von Xylophonmusik quält jeden größeren Zwerg. (51 G)
+    * Zwölf Boxkämpfer jagen Viktor quer über den großen Sylter Deich. (54 G)
+    * Polyfon zwitschernd aßen Mäxchens Vögel Rüben, Joghurt und Quark. (55 G)
+    * Schweißgequält zündet Typograf Jakob verflixt öde Pangramme an. (55 G)
+    * Vom Ödipuskomplex maßlos gequält, übt Wilfried zyklisches Jodeln. (56 G)
+    * Xaver schreibt für Wikipedia zum Spaß quälend lang über Yoga, Soja und Öko. (61 G)
+    * Die heiße Zypernsonne quälte Max und Victoria ja böse auf dem Weg bis zur Küste. (65 G)
+
+Sequence of letters:	IS
+* Buchstaben	[ÿ]

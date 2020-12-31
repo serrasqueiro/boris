@@ -1,0 +1,10 @@
+libilambda
++++
+
+Net and modern json structures.
+
+
+fcrc32.cpp and icrc32.cpp
++++
+fcrc32.cpp is simpler, and is based on BSD code.
+

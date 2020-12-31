@@ -1,0 +1,69 @@
+
+
+Consider:
+(g is grep)
+
+--->
+
+% g LETTER /usr/share/unicodeplus/unicode256.tbt | g " WITH " | sed 's/ WITH / + /;s/ ABOVE/_ABOVE/' | sed 's/;/ ;/' | sed 's/\([^ ]*\)\( .*\);\(L[lu]\);.*/{0x\1, "\3", "^\2"},/' | sed 's/ ;LATIN CAPITAL//;s/ ;LATIN SMALL//' | awk '{print "\t"$0}'
+	{0x00C0, "Lu", "^ LETTER A + GRAVE"},
+	{0x00C1, "Lu", "^ LETTER A + ACUTE"},
+	{0x00C2, "Lu", "^ LETTER A + CIRCUMFLEX"},
+	{0x00C3, "Lu", "^ LETTER A + TILDE"},
+	{0x00C4, "Lu", "^ LETTER A + DIAERESIS"},
+	{0x00C5, "Lu", "^ LETTER A + RING_ABOVE"},
+	{0x00C7, "Lu", "^ LETTER C + CEDILLA"},
+	{0x00C8, "Lu", "^ LETTER E + GRAVE"},
+	{0x00C9, "Lu", "^ LETTER E + ACUTE"},
+	{0x00CA, "Lu", "^ LETTER E + CIRCUMFLEX"},
+	{0x00CB, "Lu", "^ LETTER E + DIAERESIS"},
+	{0x00CC, "Lu", "^ LETTER I + GRAVE"},
+	{0x00CD, "Lu", "^ LETTER I + ACUTE"},
+	{0x00CE, "Lu", "^ LETTER I + CIRCUMFLEX"},
+	{0x00CF, "Lu", "^ LETTER I + DIAERESIS"},
+	{0x00D1, "Lu", "^ LETTER N + TILDE"},
+	{0x00D2, "Lu", "^ LETTER O + GRAVE"},
+	{0x00D3, "Lu", "^ LETTER O + ACUTE"},
+	{0x00D4, "Lu", "^ LETTER O + CIRCUMFLEX"},
+	{0x00D5, "Lu", "^ LETTER O + TILDE"},
+	{0x00D6, "Lu", "^ LETTER O + DIAERESIS"},
+	{0x00D8, "Lu", "^ LETTER O + STROKE"},
+	{0x00D9, "Lu", "^ LETTER U + GRAVE"},
+	{0x00DA, "Lu", "^ LETTER U + ACUTE"},
+	{0x00DB, "Lu", "^ LETTER U + CIRCUMFLEX"},
+	{0x00DC, "Lu", "^ LETTER U + DIAERESIS"},
+	{0x00DD, "Lu", "^ LETTER Y + ACUTE"},
+	{0x00E0, "Ll", "^ LETTER A + GRAVE"},
+	{0x00E1, "Ll", "^ LETTER A + ACUTE"},
+	{0x00E2, "Ll", "^ LETTER A + CIRCUMFLEX"},
+	{0x00E3, "Ll", "^ LETTER A + TILDE"},
+	{0x00E4, "Ll", "^ LETTER A + DIAERESIS"},
+	{0x00E5, "Ll", "^ LETTER A + RING_ABOVE"},
+	{0x00E7, "Ll", "^ LETTER C + CEDILLA"},
+	{0x00E8, "Ll", "^ LETTER E + GRAVE"},
+	{0x00E9, "Ll", "^ LETTER E + ACUTE"},
+	{0x00EA, "Ll", "^ LETTER E + CIRCUMFLEX"},
+	{0x00EB, "Ll", "^ LETTER E + DIAERESIS"},
+	{0x00EC, "Ll", "^ LETTER I + GRAVE"},
+	{0x00ED, "Ll", "^ LETTER I + ACUTE"},
+	{0x00EE, "Ll", "^ LETTER I + CIRCUMFLEX"},
+	{0x00EF, "Ll", "^ LETTER I + DIAERESIS"},
+	{0x00F1, "Ll", "^ LETTER N + TILDE"},
+	{0x00F2, "Ll", "^ LETTER O + GRAVE"},
+	{0x00F3, "Ll", "^ LETTER O + ACUTE"},
+	{0x00F4, "Ll", "^ LETTER O + CIRCUMFLEX"},
+	{0x00F5, "Ll", "^ LETTER O + TILDE"},
+	{0x00F6, "Ll", "^ LETTER O + DIAERESIS"},
+	{0x00F8, "Ll", "^ LETTER O + STROKE"},
+	{0x00F9, "Ll", "^ LETTER U + GRAVE"},
+	{0x00FA, "Ll", "^ LETTER U + ACUTE"},
+	{0x00FB, "Ll", "^ LETTER U + CIRCUMFLEX"},
+	{0x00FC, "Ll", "^ LETTER U + DIAERESIS"},
+	{0x00FD, "Ll", "^ LETTER Y + ACUTE"},
+	{0x00FF, "Ll", "^ LETTER Y + DIAERESIS"},
+<---
+Most european languages allow accented voels and consonants, but "rarely" allow
+some combinations.
+For instance, rarely 'N~' (LETTER N WITH TILDE) is used in spanish, but rarely
+used in portuguse (only to quote special words like 'Nin~o').
+

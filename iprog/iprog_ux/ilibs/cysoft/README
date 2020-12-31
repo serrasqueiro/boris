@@ -1,0 +1,42 @@
+cysoft lib
++++
+
+Highlights, keywords
++++
+- Base52 (easy readable base, and alpha-symbols)
+
+- phash (obsolete by now, see 'StringHash at lib iobjs)
+
+- MD5 (todo)
+
+
+Introduction
++++
+Unlike 'gfastauth', cysoft lib was built from scratch; idea is to provide
+simple mechanisms for authentication.
+
+
+Debug
++++
+Some hints:
+	% debug "The quick brown fox jumps over the lazy dog" | g Hash\(
+	-1052688030     Hash('The ...')
+The hash of a string is a 32bit value (long).
+For other pangrams, refer to [1].
+
+Debug without any arg will assume 4 args:
+	Abc EMPTY NULL Done
+
+Debug with
+	HASH [file]
+will dump string hashes for file lines (or stdin if no arg is given).
+Useful for using against 'dictionaries', e.g.
+	./debug HASH /usr/share/dict/linux.words
+This allows assessing whether hash against common words is mostly different.
+
+
+
+References
++++
+[1] .../etc/pangrams.txt
+

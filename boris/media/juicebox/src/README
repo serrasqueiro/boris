@@ -1,0 +1,67 @@
+juicebox
++++
+This is an useful to dump your files into some dir before going to a CD or
+DVD. It is mainly designed for audio on CD although any other destination
+format will do too.
+
+The following interesting commands:
+	- crosslink, to create a series of soft-links to another path,
+	- copy, pretty much the same but it actually copies contents.
+
+Other commands are available:
+	- test, just a plain test
+	- vpl-dump, to dump a vpl file
+	- ren, being done
+	- compact, to nail down a directory (or suggest, using -z 1)
+	- generated, example:
+		juicebox generated \
+			-b H:\\huge\\images\\music\\ \
+			-l /mnt/tmp/a.log -z 256 \
+			~/tmp/images/list_musco.txu > a.m3u
+
+
+Environment variables
++++
+The following environment variables allow a change of the default behavior.
+	"DIGITS_FORMAT"
+		-> %03d is the default prefix, three digits with a leading zero;
+		   a dot means no prefix digits.
+	"HOME",
+		-> guess configuration file (Linux OS)
+	"USERPROFILE"
+	"HOMEDRIVE"
+		-> "C:", or any other drive (if "USERPROFILE" is not there)
+	"JUICEBOX_DUMP"
+		-> output file
+	"SUBST"
+		-> Skip read out of config file
+	"TEMP", "TMP"
+		-> Other temporary directory for /tmp/.juicebox (Linux OS)
+		   or juicebox.tmp (Windows).
+
+
+Examples
++++
+
+Win32, generating a random playlist:
+	C:\Documents and Settings\henrique\My Documents\My Music>juicebox generated -d 4 -b H:\images\music\ H:\images\list_musco.txu -o a.m3u
+
+
+The command 'generate' uses a different approach: you can use existing
+playlists to dump every song (use '-f' to dump only if file exists.)
+The following playlists can be read:
+	- .m3u (general text listing)
+	- .vpl
+	- .pls (old playlist style)
+	- .xspf (VLC style)
+	- .wpl (Windows playlist, i.e. from Mediaplayer)
+Output starts with #EXTM3U
+Limiting output size is done using '-z'.
+By default (without '-a' option) no duplicates are dumped.
+Analysis is made on similarities of names, but this whole work is not complete.
+
+
+About SFV
++++
+Algorithm for SFV hash (CRC32) is not correctly aligned.
+

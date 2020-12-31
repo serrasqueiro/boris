@@ -1,0 +1,39 @@
+libiobjs
+
+Intro
++++++
+This lib is based on libgobj 1.0; original libgobj contained lots of built-in
+primitives to control:
+	* opened files and sockets;
+	* signal handling;
+	* lists, strings;
+	* Unicode dynamic tables.
+But had a limited handling of lists (e.g.: insertion of elements in a list),
+etc. Extended libs, such as libgobjeio, implemented this in inherited classes.
+The idea of libiobjs is to:
+	* i - implement gobjs in an efficient and 'sImple' way;
+	* s - full/extended support of lists and strings,
+	* although without the extra embedded facilities provided by gobj or
+	  their expanded libs.
+
+
+Version
++++++
+Current version:
+	v3.1
+
+v3.x has Hash support.
+v2.1 has GetInt for gTop, and few minor fixes.
+
+
+How-to compile
++++++
+Just issue make. This lib does not depend on any lib, other than the
+standard supporting (shared-)lib for C++: the libstdc++.
+
+Special '-Dxxx' defines can be issued using:
+	make CC_BASIC='-Dxxx1 -Dxxx2 ...'
+One of the well-known defines is:
+	* iDOS_SPEC, indicating a Windows environment, compatible to Dev-C++;
+	* or FREESCO: that supports older Kernels, such as 2.0.3x...
+

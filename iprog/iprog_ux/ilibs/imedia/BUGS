@@ -1,0 +1,5 @@
+libimedia bugs
++++
+imb_utf8_str_to_ucs2() does not convert, e.g.
+	Maluco Beleza [E2][80][93] Anyone!
+

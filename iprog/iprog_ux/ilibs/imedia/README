@@ -1,0 +1,20 @@
+imedia lib
++++
+
+Mainly a confortable way to use gUniCode.
+Also a scrap for isweb.cpp filter! (Meanwhile discontinued)
+
+Version 2.1 introduces:
+- ptrUniData (ptr to sIsoUni, instead of uniData)
+
+
+Debug
++++
+To debug this lib, do:
+	% make debug
+	% debug FILE
+	or just:
+	% echo | debug
+To debug UTF8 text do
+	% cat FILE | debug utf8
+

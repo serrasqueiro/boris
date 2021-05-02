@@ -1,0 +1,50 @@
+ilibs  (c) 2010, 2021  Henrique Moreira
+
+Part of iprog/ repository. ilibs/ has multiple libs:
+
+	cysoft
+	icntp
+	ilambda
+	ilog
+	imaudio
+	imedia
+	iobjs
+	ipopclient
+
+The most important is iobjs, which gathers a 'refreshed' gobj library:
+	- it is more simplified (e.g. no built-in UniCode lib),
+	- it has more methods (like string hashing),
+	- it contains several fixes.
+
+gobj was born and published by me at SourceForge [1]
+	http://sourceforge.net/projects/libunicode-plus/
+under xpfweb-v2.8.1 (c) 2008
+The great advantage of xpfweb is that is provenly tested for Linux and Windows
+platforms. ilibs/iobjs is derived from that work, and has been tested in Linux
+and Windows just as well.
+
+ilambda has several add-ons for TCP connectivity, like 'bind one/two
+interfaces', sockets, and hashing.
+
+imedia library has a really fast Web parser (take a look at isweb.cpp,h);
+although it does not have gUnweb full capabilities, it is faster by far
+(note: incomplete!)
+
+
+Development details
++++
+All libs can be generated to standard '.a' libs or '.so', makefiles are only
+covering shared libraries currently.
+Compilation has been checked against gcc/g++ (GNU C++ compiler), and DevCpp
+(Bloodshed Software, which now became orwelldevcpp - a simple front-end for
+MinGW, at www.mingw.org).
+Everything is compatible with gcc 2.96, and Kernel dependencies has been kept
+to a minimum.
+
+Before 2015 this set of libraries used the following compiler switches:
+	-Wno-deprecated -Wno-write-strings
+but from this time onwards, both -Wall, -Werror, and:
+	-Wdeprecated -Wwrite-strings
+(which is there to force older gcc versions, like gcc 2.96, to look for invalid
+'non (const char*)' types.
+

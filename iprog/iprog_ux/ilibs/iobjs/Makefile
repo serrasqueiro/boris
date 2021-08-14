@@ -18,7 +18,7 @@ CC_DEBUG=-g $(CC_DEFS)
 #CFLAGS=-O2 -Wcast-qual
 #CFLAGS_GCC_3=-Wnormalized=none
 #CFLAGS=-O2 -Wno-deprecated -Wno-write-strings $(SHLIB_CFLAGS)
-CFLAGS=-O2 -Wall -Werror -Wdeprecated -Wwrite-strings $(SHLIB_CFLAGS)
+CFLAGS=-O2 -Wall -Werror -Wdeprecated -Wwrite-strings -Wno-register $(SHLIB_CFLAGS)
 CC_OPT=$(CC_DEBUG)
 
 LIB_ME=iobjs

@@ -16,7 +16,7 @@ CCINCLUDE2=-I$(INCLUDE2)
 CCINCLUDE3=-I$(INCLUDE3)
 
 #CEXTRA=-Wall -Wno-write-strings
-CEXTRA=-Wall -Werror
+CEXTRA=-Wall -Werror -Wno-format-truncation
 CFLAGS=-O2 $(CEXTRA)
 LINK_OPT=-Wl,-rpath,$(INCLUDE1):$(INCLUDE2):$(INCLUDE3)
 CC=g++

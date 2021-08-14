@@ -1,0 +1,126 @@
+hints_about_ntp.txt
++++
+
+Although the quickest way to check the ntpd (daemon) status is to use:
+	% ntpq -n -p
+	(query, do not resolve host names, '-p' show peers)
+
+you will find it useful to know the same commands can be queried through
+the '-c' option of the ntpdc (the ntp daemon client):
+
+>>>
+[henrique@eagle ~]$ ntpdc -n -c peers
+     remote           local      st poll reach  delay   offset    disp
+=======================================================================
+=127.127.1.0     127.0.0.1       10   64  340 0.00000  0.000000 0.43941
+*193.136.164.1   10.0.0.9         2  128  377 0.00943 -0.003793 0.05522
+[henrique@eagle ~]$ ntpdc -n -c dmpeers
+     remote           local      st poll reach  delay   offset    disp
+=======================================================================
+ 127.127.1.0     127.0.0.1       10   64  300 0.00000  0.000000 0.66621
+*193.136.164.1   10.0.0.9         2  128  377 0.00943 -0.003793 0.06892
+<<<
+
+'dmpeers', as explained in
+	http://www.eecis.udel.edu/~mills/ntp/html/ntpdc.html
+only shows the final status.
+
+Some details can be queried through
+	ntpdc -c kerninfo
+and
+	ntpdc -c sysinfo
+
+
+
+Running ntp
++++
+Should be started after issuing an immediate time update, e.g. using
+	ntpdate -b pool.ntp.org
+as follow:
+	/usr/sbin/ntpd -p /var/run/ntpd.pid
+
+
+Checking ntp
++++
+You can see the running process id by entering the following command:
+	% echo "ntp at pid: `cat  /var/run/ntpd.pid`"
+
+
+The selected system peer (clock) will only take effect after some time
+(ca. 10 minutes), the algorithm will select you the best one, signaled
+by peers at the first character. This is known as the "Tally code", in
+the table below shown at the third column:
+
+  Code	Message		T	Description
+  0	sel_reject	 	discarded as not valid (TEST10-TEST13)
+  1	sel_falsetick	x	discarded by intersection algorithm
+  2	sel_excess	.	discarded by table overflow (not used)
+  3	sel_outlyer	-	discarded by the cluster algorithm
+  4	sel_candidate	+	included by the combine algorithm
+  5	sel_backup	#	backup (more than tos maxclock sources)
+  6	sel_sys.peer	*	system peer
+  7	sel_pps.peer	o	PPS peer (when the prefer peer is valid)
+
+
+A star (*) indicates the system peer.
+
+
+ntp statistics
++++
+You can view today's statistics by looking at
+	/var/log/ntpstats
+There you will see one file per day, e.g. peerstats.20140817
+(and usually the corresponding loopstats.20140817).
+There the hard-link 'peerstats' point to the current day peer statistics.
+
+	% cat peerstats | awk '{print "  "$2"\t"$3"\t"$4"\t"$5}'
+
+The command above will display today's peers clock offset, instead
+of the entire listing (which you can also consult at the peerstats tables).
+In particular, it will show:
+	- time past midnight,
+	- IP address,
+	- peer status word,
+	- the clock offset.
+
+It might look as follow:
+  44101.322     127.127.1.0     9024    0.000000000
+  44102.341     193.136.164.1   9024    0.025015168
+  44103.390     195.154.216.35  9024    0.006805747
+  ...
+  48995.825     195.154.216.35  961a    -0.013573000
+
+
+peerstats tables:
+   Item		Units	Description
+   --           --      --
+   48773	MJD	date
+   10847.650	s	time past midnight
+   127.127.4.1	IP	source address
+   9714		hex	status word
+   -0.001605376	s	clock offset
+   0.000000000	s	roundtrip delay
+   0.001424877	s	dispersion
+   0.000958674	s	RMS jitter
+
+loopstats tables:
+   Item		Units	Description
+   --           --      --
+   56886	MJD	date
+   63153.938	s	time past midnight
+   0.006244000	s	time offset
+   16.792	PPM	frequency offset
+   0.022031913	s	jitter
+   4.619657	PPM	Allan deviation
+   9		(**)	clock discipline time constant
+
+   (**) in the example above, 9, means the servers are queried each 2^9
+        seconds (meanining, each 512 seconds.)
+        When ntp starts this value becomes 6 (each 64 seconds), and under
+        normal circumstances it goes up to 10 (1024 seconds).
+
+   The MJD reference in the last example (56886) corresponds to
+	2014-08-17;
+   time past midnight 63153 corresponds to 17:32:33.
+
+

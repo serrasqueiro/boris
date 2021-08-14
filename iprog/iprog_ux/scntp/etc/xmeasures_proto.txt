@@ -1,0 +1,44 @@
+
+xmeasure
+++++++++++
+xmeasures is the protocol for exchanging information between several networks
+points. Remote network points are named remote clients, usually using a
+permanent TCP connection to the 'iserver' [1]. First remote connection is
+authenticated (HskAuth), remaining information exchange uses no or fast
+simetric encryption.
+
+The main purpose of xmeasure is two fold:
+    - measure connectivity between two or more distinct locations,
+    - measure TCP/network latency in the network.
+
+A single server (iserver) collects information about remote sites. The role can
+be inverted in a simple way: one or more remote clients monitor the reliability
+of their connection to iserver.
+
+
+Example 1 - HTTP internet server monitoring
+++++++++++
+Let us consider a simple example: one internet HTTP server is at Lisbon, serves
+mainly IP address space from Portugal. The service provider isn't that
+reliable, so, the Company Xyz needs to assess its connectivity (uptime, general
+connectivity.) It can use several remote network points to connect permanently
+to this server. Alternatively, one would have to trigger "http gets" in a
+cronjob fashion.
+
+
+The protocol xmeasures
+++++++++++
+Intro - <TODO>
+HskAuth (handshake simplified authentication):
+	- the server side and protocol is named xmeasures.
+<TODO>
+
+
+
+
+References
+++++++++++
+[1]	iserver: intra-/internet xmeasure collector.
+
+[2]	/RFC-2616/ IETF, rfc2616.html: HTTP (main reference)
+

@@ -1,0 +1,34 @@
+basic_scripts.txt
++++
+Pull out date from web-server.
+This is a kind of overengineered, but works quite well:
+at least using standard HTTP, that may work flawlessly, in comparison with
+port 123 (NTP) that may be firewalled.
+
+
+	% date -R -d "Sat, 25 Mar 2017 09:55:56 GMT" +"%Y-%m-%d %H:%M:%S"
+shows:
+	2017-03-11 09:55:56
+
+	% echo -e "GET / HTTP/1.0\n\n" | nc 192.168.1.254 80
+		HTTP/1.0 302 Moved Temporarily
+		Date: Sat, 25 Mar 2017 10:00:32 GMT
+		Server: 
+		Content-length: 0
+		Connection: close
+		Location: http://127.0.0.1:80/login.lp
+		Set-Cookie: xAuth_SESSION_ID=v+a9j5P5pIOpzmrTzK28FAA=; path=/; 
+		Cache-control: no-cache="set-cookie"
+So, we can grep the 'Date:' line as follow:
+	% ... | grep ^Date:
+and update our date if our date is really far away in respect of what we got.
+
+We can then use 'scntp date' to dump a timestamp
+	% HTTP_DATE=` ... | grep ^Date: | \
+		sed 's/^Date://;s/.*,[ ]*//;s/ [A-Z][A-Z][A-Z0-9]*$//'`
+	% scntp date -vv $HTTP_DATE
+	or:
+	% scntp date $HTTP_DATE -vv | tr \\011 @ | sed 's/.*@//'
+... or just:
+	% date +%s -d "Sat, 25 Mar 2017 10:00:32 GMT"
+

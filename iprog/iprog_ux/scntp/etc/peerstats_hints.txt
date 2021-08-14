@@ -1,0 +1,14 @@
+
+peerstats_hints.txt
++++
+Check the 'tail -f' of current ntp statistics:
+	[henrique@eagle check]$ tail -f /var/log/ntpstats/peerstats | show_peerstats -0
+
+	# -0 option puts resolution in seconds
+	# -1 allows 0.1 second resolution
+	#  (both are rounded!)
+
+To check the last 10 logs:
+	cat /var/log/ntpstats/peerstats | show_peerstats | tail
++++
+

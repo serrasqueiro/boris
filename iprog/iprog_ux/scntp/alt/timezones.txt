@@ -1,0 +1,42 @@
+
+
+[C library function - localtime()](https://www.tutorialspoint.com/c_standard_library/c_function_localtime.htm)
+- ...at Tutorialspoint
+
+Manual page of C pages:
+	- [strftime](https://linux.die.net/man/3/strftime) -- C-language glibc
+
+
+
+# The following command shows what is the UTC time (-u) for 13:41 at New York:
+henrique@ludo:/etc> date --date='TZ="America/New_York" 2020-10-18 13:41' -u
+Sun Oct 18 17:41:00 UTC 2020
+
+# Show (a bit less verbose) the DST transitions:
+/usr/sbin/zdump -V /etc/localtime
+
+
+henrique@ludo:~/iprog/iprog_ux/scntp/alt> /usr/sbin/zdump /usr/share/zoneinfo/Asia/Kolkata
+/usr/share/zoneinfo/Asia/Kolkata  Sun Oct 18 21:26:33 2020 IST
+
+henrique@ludo:~/iprog/iprog_ux/scntp/alt> /usr/sbin/zdump /usr/share/zoneinfo/Europe/
+Amsterdam    Busingen     Kiev         Moscow       Saratov      Vatican
+Andorra      Chisinau     Kirov        Nicosia      Simferopol   Vienna
+Astrakhan    Copenhagen   Lisbon       Oslo         Skopje       Vilnius
+Athens       Dublin       Ljubljana    Paris        Sofia        Volgograd
+Belfast      Gibraltar    London       Podgorica    Stockholm    Warsaw
+Belgrade     Guernsey     Luxembourg   Prague       Tallinn      Zagreb
+Berlin       Helsinki     Madrid       Riga         Tirane       Zaporozhye
+Bratislava   Isle_of_Man  Malta        Rome         Tiraspol     Zurich
+Brussels     Istanbul     Mariehamn    Samara       Ulyanovsk
+Bucharest    Jersey       Minsk        San_Marino   Uzhgorod
+Budapest     Kaliningrad  Monaco       Sarajevo     Vaduz
+henrique@ludo:~/iprog/iprog_ux/scntp/alt> /usr/sbin/zdump /usr/share/zoneinfo/Europe/Lisbon
+/usr/share/zoneinfo/Europe/Lisbon  Sun Oct 18 16:56:54 2020 WEST
+henrique@ludo:~/iprog/iprog_ux/scntp/alt> file /etc/localtime
+/etc/localtime: symbolic link to /usr/share/zoneinfo/Europe/Lisbon
+
+
+TZDIR="$HOME/iprog/iprog_ux/scntp/alt/zoneinfo" TZ="America/Los_Angeles" scntp date-ux -v
+
+

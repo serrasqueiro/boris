@@ -1,0 +1,144 @@
+scntp
++++
+scntp is a simplified CNTP (Civil Network Time Protocol) server,
+ especially built for intranet environments. In particular 'vmsvc'
+(VMware CNTP services) are suited for serving on a basic host, running
+eventually in a Windows-based OS.
+
+It is the successor of gcntpaserver; it uses iobjs, ilog and icntp libs.
+
+To compile everything, use:
+	% make all
+or, to compile scntp, use:
+	% make
+
+
+VNTP (CNTP running as a 'vmsvc' on a host, and a 'cntp client' on a guest OS)
+is here discussed. It is primarily intended:
+	* to be simple
+	* to be robust
+	* to have low traffic
+
+The simplicity of the protocol should be transposed to the implementation.
+The default server port is 1563 (non-privileged).
+
+scntp utility has basically the following commands:
+   date         Shows dates
+   dates        Shows dates from timestamps
+   vmsvc        VMware CNTP behaviour
+   vmsvcd       VMware CNTP behaviour (daemon)
+   proxy        Transparent proxy
+   xmeasures    Experimental measurement server (never used it!)
+
+Without any command, it shows the current time.
+This is known as the no-command feature.
+In this feature, consider the following examples.
+
+Show the date/ time in the same line (-d 3), show milliseconds (-m),
+and show progress (or tickmarks, -v):
+	scntp -k 1 -m -v -d 3
+Show the date/ time each two seconds:
+	scntp -k 2
+
+
+
+A) Basic VNTP
+++++++++++
+No forks or threads are required; by default no gettimeofday / settimeofday
+are used. The trade-off is the granularity of time adjustment is of a second.
+
+The Basic VNTP has no authentication, has a simple format, and uses only a
+query and a response. The client makes a one line query with the following
+format:
+	Ab 0123456789 012
+
+'Ab' is one upper-case letter A, followed by a second letter: a lower-case
+letter known as basic-request. The basic request is primarily 'b'; in this
+case the server does not calculate anything, just responds back with the
+current time-of-day. Basic-requests available are:
+	* b	boot (typically used when clients boot)
+	* c	compreensive request
+The 10-digits are known as client-sec-reference; 3-digits follow after a blank
+with indication of miliseconds.
+
+You can test the server by simulating a client: using telnet, or eventually
+issuing 'netcat' (nc), for instance:
+	% echo "Ab 123456789 567" | nc localhost 1563
+The server will respond something like:
+	Br 1184885532 428
+	% scntp date 1184885533
+	2007-07-19 22:52:13
+
+
+
+Transparent proxy
+++++++++++
+scntp supports a command 'proxy' that is a transparent proxy:
+does not fork, just reads/writes from/to a distinct host:port.
+You must specify a remote-host using the following format:
+	host[:port]
+Transparent proxy for SSH, using local listening port 8022:
+	scntp proxy -r 10.0.0.20:22 -p 8022
+
+
+date
+++++++++++
+scntp date command is quite simple;
+it recognizes two basic formats:
+	stamp		a number between 86400 and 2147483647
+	a date		format explained below
+
+A date is e.g.
+	Feb 28 2014 12:34:56
+or
+	Feb 28 2014
+or
+	2014-02-28
+or
+	2014-02-28 12:34:56
+
+Using option -v at least once will show RFC 822 date;
+-v -v (twice) shows the timestamp (epoch time).
+
+
+Clock use
+++++++++++
+Keep showing the date:
+	% scntp -k 1 -d 9
+The same, but show a line each second:
+	% scntp -k 1
+Using '-v' you will see +0000 or the daylight saving time also;
+combining '-v' and '-d 9' you will see a progress character additionally.
+
+
+xmeasure
+++++++++++
+scntp application supports an additional tool for measuring traffic, based on
+HskAuth (handshake simplified authentication):
+	- the server side is named xmeasures,
+	- the client side is xmeasure (not yet implemented).
+
+
+
+B) FCNTP (Fast and secure CNTP)
+++++++++++
+<TODO>
+
+
+
+show_peerstats
+++++++++++
+Simply dump offset that exists in ntpstats/ files like peerstats and loopstats,
+in a human-readable format...
+
+
+
+Bugs
+++++
+1. 2^31-1 is the max 'scntp date N' allows:
+	[henrique@eagle src]$ scntp date 2147483647
+	2038-01-19 03:14:07
+	[henrique@eagle src]$ scntp date 2147483648
+	1901-12-13 20:45:52
+
+

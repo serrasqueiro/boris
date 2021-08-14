@@ -1,0 +1,11 @@
+#ifndef G_CIO_X_H
+#define G_CIO_X_H
+////////////////////////////////////////////////////////////
+
+extern ssize_t cxio_read (int fd, void *buf, size_t count) ;
+
+extern ssize_t cxio_write (int fd, void *buf, size_t count) ;
+
+////////////////////////////////////////////////////////////
+#endif //G_CIO_X_H
+

@@ -89,6 +89,8 @@ extern int flush_log_a () ;
 
 extern char* tod_date () ;
 
+extern char* tod_date_ext (int opt_secs) ;
+
 extern char* tod_date_miliseconds (t_uint16 miliseconds) ;
 
 extern int opt_to_VerboseLevel (sOptCntp& opt) ;

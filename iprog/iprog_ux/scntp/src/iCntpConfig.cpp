@@ -48,13 +48,22 @@ int flush_log_a ()
 
 char* tod_date_cntpas (gDateTime& now, t_int16 minutesAdjust, char* strResult, size_t size)
 {
+ const bool hour_and_minute( size==0 );
+ if ( size == 0 ) {
+     size = 255;
+ }
  if ( strResult==nil ) {
      strResult = sGlobTod.Str();
  }
  iGlobDay = now.day;  // Just keeping the day
- snprintf( strResult, size, "%04u-%02u-%02u %02u:%02u:%02u",
-           now.year, now.month, now.day,
-           now.hour, now.minu, now.sec );
+ if ( hour_and_minute ) {
+     snprintf( strResult, size, "%02u:%02u", now.hour, now.minu );
+ }
+ else {
+     snprintf( strResult, size, "%04u-%02u-%02u %02u:%02u:%02u",
+	       now.year, now.month, now.day,
+	       now.hour, now.minu, now.sec );
+ }
  return strResult;
 }
 
@@ -77,6 +86,13 @@ char* tod_date ()
 {
  gDateTime now( gDateTime::e_Now );
  return tod_date_cntpas( now, 0, nil, 255 );
+}
+
+
+char* tod_date_ext (int opt_secs)
+{
+ gDateTime now( gDateTime::e_Now );
+ return tod_date_cntpas( now, 0, nil, opt_secs == 60 ? 0 : 255 );
 }
 
 

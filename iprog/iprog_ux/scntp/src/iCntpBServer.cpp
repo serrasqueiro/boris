@@ -116,6 +116,10 @@ or\n\
 	msgDaemon,
 	DEF_CNTP_PORT,
 	msgExtra);
+ printf("\n\
+   scntp -k 1 -d 9    -- shows continuous clock;\n\
+   scntp -k 60 -d 9   -- shows continuous clock every minute.\n\
+");
  return 0;
 }
 
@@ -127,7 +131,7 @@ int print_version (char* progStr)
 Written by Henrique Moreira.\n\
 \n\
 Build \
-017\
+018\
 \n\
 \n\
 Copyright (C) %u %s.\n\
@@ -733,9 +737,12 @@ int simple_show (FILE* fOut, bool doListen, t_gPort servingPort, int eachSecond,
  const int debug( lGlobLog.dbgLevel );
  const char tickControlChar( ' ' );
  const t_int32 wDeltaInit( -30 );  // -30 milliseconds is a good reduction to 1000 ms of Sleep, due to processing of own functions...
+ const int optSeconds( eachSecond );
+ const bool showHHSS( optSeconds == 60 );
  const bool showTickMark( eachSecond>=1 && debug>=3 );
  const bool showTzName( debug>=6 );
  const char* currentTimeZone( NULL );
+ const char* strClean2( "\r" );
 
  FILE* fDump( fOut ? fOut : stdout );
  bool showMillis( opt.doShowMillis );
@@ -744,6 +751,10 @@ int simple_show (FILE* fOut, bool doListen, t_gPort servingPort, int eachSecond,
  static t_int16 progress;
  static char tickmarks[ 12 ] = "\\|/-~!x";
  static const t_uint16 nrTickmarks( 4 );
+
+ if ( eachSecond == 60 ) {
+     eachSecond = 1;
+ }
 
  //static const t_uint16 deviationTick( 4 );  // tilde symbol (~)
  //static const t_uint16 noTimeTick( 5 );  // exclamation mark symbol
@@ -829,15 +840,18 @@ int simple_show (FILE* fOut, bool doListen, t_gPort servingPort, int eachSecond,
 	 }
      }
      else {
-	 ctime_trim_sec_string( now, sizeof(outBuf)-1, outBuf, second );
+	 const int aBufSize( showHHSS ? 0 : (sizeof(outBuf)-1) );
+	 ctime_trim_sec_string( now, aBufSize, outBuf, second );
+	 strcat(outBuf, " ");
      }
 
      if ( showTickMark ) {
 	 // TICK MARKS (clock-second-progress)
-	 sprintf(strEndLine, "  %c  %c  %c     \r",
+	 sprintf(strEndLine, "  %c  %c  %c     %s",
 		 (second % 2 ? ((second > 30 ? ':' : '.')) : ' '),
 		 opt.isVerbose ? tickmarks[ progress % nrTickmarks ] : ' ',
-		 tickControlChar);
+		 tickControlChar,
+		 strClean2);
      }
      else {
 	 strcpy( strEndLine, "\n" );
